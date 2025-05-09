@@ -1,0 +1,15 @@
+---
+title: "Jasmine Lantaca"
+about: 
+  template: jolla
+  image: face.jpg
+  links: 
+    - icon: github
+      text: Github
+      href: https://github.com/jasmeh-lan
+    - icon: google
+      href: "https://mail.google.com"
+      text: "jasminelantaca@gmail.com"
+---
+
+Jasmine Lantaca, currently a student at [California State University, Monterey Bay](http://csumb.edu/mathstat).

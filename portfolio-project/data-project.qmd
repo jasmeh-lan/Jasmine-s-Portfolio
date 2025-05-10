@@ -1,5 +1,5 @@
 ---
-title: "Project: MediCal Eligibility Between Ethncity"
+title: "Project: MediCal Eligibility Between Ethncities"
 format: html
 execute: 
   echo: false

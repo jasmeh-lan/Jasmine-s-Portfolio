@@ -47,5 +47,40 @@
     "title": "Project: MediCal Eligibility Between Ethncity",
     "section": "Visualization 2",
     "text": "Visualization 2\nHere is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html",
+    "href": "portfolio-project/data-project.html",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "",
+    "text": "Here is a description of my data and a link to the source embded here with references."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html#data-description",
+    "href": "portfolio-project/data-project.html#data-description",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "",
+    "text": "Here is a description of my data and a link to the source embded here with references."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html#data-cleaning",
+    "href": "portfolio-project/data-project.html#data-cleaning",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "Data Cleaning",
+    "text": "Data Cleaning\nHere I describe in plain speak what I did to clean the data. Do not show code or use technical terms. I want to be able to read this and understand what I did."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html#visualzation-1",
+    "href": "portfolio-project/data-project.html#visualzation-1",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "Visualzation 1",
+    "text": "Visualzation 1\nHere is a description of the first visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html#visualization-2",
+    "href": "portfolio-project/data-project.html#visualization-2",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "Visualization 2",
+    "text": "Visualization 2\nHere is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows."
   }
 ]

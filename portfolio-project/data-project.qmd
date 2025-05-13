@@ -12,15 +12,66 @@ embed-resources: true
 #| label: setup
 #| include: false
 library(tidyverse)
+library(purrr)
+library(ggplot2)
 ```
 
 ## Data Description
 
-Here is a description of my data and a link to the source embded here with references.
+The dataset titled "Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal" provides information about the racial and ethnic composition of Medi-Cal eligible individuals aged 0 to 20 in California. The data categories individuals into various races and ethic groups, including Hispanic, White, Black, Asian (Chinese, Filipino, Vietnamese, and others), Alaskan Native or American Indian, and Pacific Islanders. The data is organized by reporting period of year and month, the ethnic group categories, and the number of eligible individuals.
+
+Reference: 
+
+[California Health and Human Services Open Data Portal. (n.d.). Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal – Dataset.](https://data.chhs.ca.gov/dataset/eligible-individuals-under-age-21-enrolled-in-medi-cal-by-county/resource/c3bd3780-f419-4369-9f65-9b08cf54cb84) 
+
+```{r}
+#| label: Orginal Data
+MediCal <- read_csv("data/data_raw/7.4-race-ethnicity-statewide_q4_2024_odp.csv")
+```
 
 ## Data Cleaning
 
-Here I describe in plain speak what I did to clean the data. Do not show code or use technical terms. I want to be able to read this and understand what I did.
+To prepare the dataset for visualizations, data cleaning is an essential first step. The process begins by loading in all my packages that I am going to use and the original dataset. Then, looking at the dataset, I realize that the names of each column is too long so the first I did was rename the variables into a more shorter and simpiler name.
+
+```{r}
+#| label: Data Cleaning
+
+# Making a Base Model of the Clean Data
+MediCal <- MediCal |>
+  rename(Period = `Reporting Period`, 
+         Ethnic = `Race Ethnicity` , 
+         Eligiblity = `Number of Eligible Individuals`) |> #Renaming all my variables into something more simpler and understandable
+  mutate(Eligiblity = as.numeric(Eligiblity)) |> # Making sure all Eligibility column is numeric data
+  mutate(Ethnic = fct_recode(Ethnic, 
+                             "Mixed Asian-American" = "Amerasian")) |> # Realized that I need to specify what Amerasian is for those who do not know
+    separate(Period, into = c("Year", "Month"), sep = "-") # Want to separate the period into months and year
+
+## write_csv(MediCal, "data/data_clean/MediCal.csv")
+
+# Creating a data set that tells the total of medical eligible individual for each ethnicity per year
+Year <- MediCal |>
+  group_by(Year, Ethnic) |> 
+  summarise(Total = sum(Eligiblity)) # Finding the total number of eligible individuals based on the year and ethnicity
+
+## write_csv(Year, "data/data_clean/Yearly_MediCal.csv")
+
+# 2024 Monthly Total Combined and Separated
+Month <- MediCal |>
+  filter(Year == "2024") |> 
+  group_by(Ethnic) |>
+  mutate(Total = sum(Eligiblity))
+
+## write_csv(Month, "data/data_clean/2024Monthly_MediCal.csv")
+```
+
+```{r}
+#| label: read data
+# loading in the clean data here
+
+MediCal_clean <- read_csv("data/data_clean/MediCal.csv")
+Yearly <- read_csv("data/data_clean/Yearly_MediCal.csv")
+M2024 <- read_csv("data/data_clean/2024Monthly_MediCal.csv")
+```
 
 
 ## Visualzation 1
@@ -29,5 +80,9 @@ Here is a description of the first visualization. I want to describe what the vi
 
 
 ## Visualization 2
+
+Here is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows.
+
+## Visualization 3
 
 Here is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows.

@@ -4,21 +4,21 @@
     "href": "portfolio-project/data-project.html",
     "title": "Project: MediCal Eligibility Between Ethncities",
     "section": "",
-    "text": "Here is a description of my data and a link to the source embded here with references."
+    "text": "The dataset titled “Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal” provides information about the racial and ethnic composition of Medi-Cal eligible individuals aged 0 to 20 in California. The data categories individuals into various races and ethic groups, including Hispanic, White, Black, Asian (Chinese, Filipino, Vietnamese, and others), Alaskan Native or American Indian, and Pacific Islanders. The data is organized by reporting period of year and month, the ethnic group categories, and the number of eligible individuals.\nReference:\nCalifornia Health and Human Services Open Data Portal. (n.d.). Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal – Dataset."
   },
   {
     "objectID": "portfolio-project/data-project.html#data-description",
     "href": "portfolio-project/data-project.html#data-description",
     "title": "Project: MediCal Eligibility Between Ethncities",
     "section": "",
-    "text": "Here is a description of my data and a link to the source embded here with references."
+    "text": "The dataset titled “Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal” provides information about the racial and ethnic composition of Medi-Cal eligible individuals aged 0 to 20 in California. The data categories individuals into various races and ethic groups, including Hispanic, White, Black, Asian (Chinese, Filipino, Vietnamese, and others), Alaskan Native or American Indian, and Pacific Islanders. The data is organized by reporting period of year and month, the ethnic group categories, and the number of eligible individuals.\nReference:\nCalifornia Health and Human Services Open Data Portal. (n.d.). Race/Ethnicity of Eligible Individuals Under Age 21 Enrolled in Medi-Cal – Dataset."
   },
   {
     "objectID": "portfolio-project/data-project.html#data-cleaning",
     "href": "portfolio-project/data-project.html#data-cleaning",
     "title": "Project: MediCal Eligibility Between Ethncities",
     "section": "Data Cleaning",
-    "text": "Data Cleaning\nHere I describe in plain speak what I did to clean the data. Do not show code or use technical terms. I want to be able to read this and understand what I did."
+    "text": "Data Cleaning\nTo prepare the dataset for visualizations, data cleaning is an essential first step. The process begins by loading in all my packages that I am going to use and the original dataset. Then, looking at the dataset, I realize that the names of each column is too long so the first I did was rename the variables into a more shorter and simpiler name."
   },
   {
     "objectID": "portfolio-project/data-project.html#visualzation-1",
@@ -47,5 +47,12 @@
     "title": "Jasmine Lantaca",
     "section": "",
     "text": "Jasmine Lantaca, currently a student at California State University, Monterey Bay."
+  },
+  {
+    "objectID": "portfolio-project/data-project.html#visualization-3",
+    "href": "portfolio-project/data-project.html#visualization-3",
+    "title": "Project: MediCal Eligibility Between Ethncities",
+    "section": "Visualization 3",
+    "text": "Visualization 3\nHere is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows."
   }
 ]

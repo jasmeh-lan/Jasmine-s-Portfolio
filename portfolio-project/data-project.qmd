@@ -14,6 +14,7 @@ embed-resources: true
 library(tidyverse)
 library(purrr)
 library(ggplot2)
+library(patchwork)
 ```
 
 ## Data Description
@@ -31,7 +32,11 @@ MediCal <- read_csv("data/data_raw/7.4-race-ethnicity-statewide_q4_2024_odp.csv"
 
 ## Data Cleaning
 
-To prepare the dataset for visualizations, data cleaning is an essential first step. The process begins by loading in all my packages that I am going to use and the original dataset. Then, looking at the dataset, I realize that the names of each column is too long so the first I did was rename the variables into a more shorter and simpiler name.
+Data cleaning is an essential first step in preparing the dataset for visualizations. The process begins by loading all the used packages and the original dataset. Then, looking at the dataset, I realized that the names of each column are too long, so I first renamed the variables to shorter and simpler names. After renaming variables, I changed my column of the number of eligible individuals from a string to a numeric type to make sure the data is numeric. Next, I looked at the various ethnic groups in the ethnicity column. I changed one of the groups' names into something more commonly used, such as turning Amerasian into Mixed Asian Americans. Finally, I separated my time into months and years, in case I needed to use separate analyses for the year and month. All of these changes to the original data create my base model for future datasets that I will make, like my dataset based on the total number of eligible individuals or based on 2024 data. 
+
+For the changes I made to get a dataset based on the total number of eligible individuals per year for each ethnic group, I used the clean base model that I created previously. First, I make sure the data is grouped by year and ethnic groups. After this simple arrangement, I turn the number of eligible individuals column into a total column by summarizing the sum of all eligible individuals who share the same ethnicity and year. These two changes create my yearly dataset comprising the year, the different ethnic groups, and the total number of eligible individuals per year for each ethnic group.
+
+I also use the same clean base model for my changes to get the dataset based on recent data, aka the 2024 data. First, I arranged the data into just the year of 2024 by filtering the year section to 2024. Then, I arranged the data based on ethnicity and found the total sums of eligible individuals per ethnic group in the year 2024 by adding up all the monthly data into a new column. These changes created my dataset for 2024.
 
 ```{r}
 #| label: Data Cleaning

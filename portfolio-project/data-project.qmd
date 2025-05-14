@@ -126,12 +126,60 @@ combined |>
        caption = "This bar chart displays the top 5 and bottom 5 ethnic groups of eligible individuals under 21 in Medi-Cal from 2012 to 2024.") 
 ```
 
-The given bar chart shows the top 5 and bottom 5 ethnic groups of eligible innduduals under 21 in Medical from 2012 to 2024 (indicate top to bottom with highest at tip and lowest at the bottom). The chart compares the overall eligibility of different ethnic groups in the span of 12 years. The chart includes two categories, 'Other' and 'Not Reported', which represents individuals who do not fit into standard racial and ethnic categories and can be considered multiracial/underrepresented groups or does not disclose their information.
+The given bar chart shows the top 5 and bottom 5 ethnic groups of eligible individuals under 21 in Medical from 2012 to 2024 (indicate top to bottom with highest at tip and lowest at the bottom). The chart compares the overall eligibility of different ethnic groups in the span of 12 years. The chart includes two categories, 'Other' and 'Not Reported', which represents individuals who do not fit into standard racial and ethnic categories and can be considered multiracial/underrepresented groups or does not disclose their information.
 
 
 ## Visualization 2
 
-Here is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows.
+The line graph visualization illustrates the change in the total number of eligible individuals under 21 per year from 2012 to 2024 in the Medi-Cal program of California across the top 10 ethnic groups. Each line represents one ethnic group, which a unique combination of color and line type can distinguish. The number label at the end of each line helps recognize the corresponding ethnic group.
+
+This visualization highlights the disparities and shifts in eligible individuals across ethnic groups over the years. It helps us see the patterns across the eligibility of each ethnic group and relate such patterns to the growing demographic and diversity in the US.
+
+In the graph, we can see that there is an increase in Medi-Cal eligibility for almost all ethnic groups from 2012 to 2014. This can be because policies were added from 2012 to 2014 that supported low-income families and individuals to get Medi-Cal and transition children from one health program to Medi-Cal: reference to source [Medi-Cal Statistical Brief](https://www.dhcs.ca.gov/dataandstats/statistics/Documents/Historic-Growth-Brief.pdf). This shows how policies can affect the eligibility of individuals under 21 across many ethnic groups, which the graph visually explains.
+
+```{r}
+#| label: Preparing Visualization 2
+
+V2 <- Yearly |>
+  left_join(V1, by = "Ethnic") |>
+  arrange(desc(Overall)) |>
+  distinct(Ethnic)
+
+ten <- head(V2, 10)
+
+plot_data <- Yearly |>
+  right_join(ten, by = "Ethnic")
+```
+
+```{r}
+#| label: Visualization 2
+#| warning: false
+#| fig-width: 11
+
+plot_data |>
+  ggplot(aes(x = Year,
+             y = Total, 
+             group = Ethnic, 
+             linetype = Ethnic, 
+             color = Ethnic)) +
+  geom_line() +
+  theme_bw() +
+  scale_y_log10() + 
+  scale_x_discrete(limits = 2012:2024) +
+  labs(x = "Years from 2012 to 2024", 
+       y = "Total Number of Eligible Individuals Per Year", 
+       title = "Trends in Medi-Cal Eligibility for the Top 10 Ethnic Groups (2012-2024)", 
+       linetype = "Ethnic Groups:",
+       color = "Ethnic Group:",
+       caption = "Line graph depiciting the changing trends in Medi-Cal \neligibility for the top 10 ethnic groups from 2012 to 2024") +
+  geom_text(data = subset(plot_data, Year == 2024), 
+            aes(label = paste0(" ", 1:10)), 
+            hjust = -0.2, vjust = 0) +
+  theme(legend.position = "right",
+        legend.box = "horizontal")
+  
+```
+The given line graph portrays the trends in Medi-Cal eligibility for individuals under 21 whose in the top 10 ethnic groups from 2012 to 2024. The numbers on the each line associates with the name given in the alphabetical order of the ethnic group from top to bottom (from 1 to 10). 
 
 ## Visualization 3
 

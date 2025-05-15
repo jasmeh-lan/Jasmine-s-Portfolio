@@ -14,7 +14,6 @@ embed-resources: true
 library(tidyverse)
 library(purrr)
 library(ggplot2)
-library(patchwork) # Combining Graphs
 library(viridis) # Scale Colors
 ```
 
@@ -80,7 +79,7 @@ M2024 <- read_csv("data/data_clean/2024Monthly_MediCal.csv")
 ```
 
 
-## Visualzation 1
+## Visualization 1
 
 The visualization of the bar chart shows the top five and bottom five ethnic groups of eligible people under 21 in the Medi-Cal program in California over the past 12 years, from 2012 to 2024. The chart compares the total number of eligible individuals in each group, with the lights and longest bar indicating the ethnic groups with the most reports while the shortest and darkest bar being the group with the least amount of people.
 
@@ -91,12 +90,12 @@ Something shocking in the visualization is that the ethnic category of Other and
 ```{r}
 #| label: Preparing Visualization 1
 
-# Soritng Data
+# Sorting Data
 V1 <- Yearly |>
   group_by(Ethnic) |>
   mutate(Overall = sum(Total)) |> #Find the total eligible from 2012 to 2024
-  arrange(desc(Overall)) |>
-  distinct(Overall)
+  arrange(desc(Overall)) |> # arranging by greatest overall value to least
+  distinct(Overall) # finding the distinct ethnic groups with overall value
 
 # Head and Tail of Data
 top5 <- head(V1, 5)
@@ -108,21 +107,21 @@ combined <- bind_rows(top5, bottom5)
 
 ```{r}
 #| label: Visualization 1
-#| fig-width: 10
+#| fig-width: 12
 
 # Visualization 1
 combined |>
-  ggplot(aes(x = fct_reorder(Ethnic, Overall), 
+  ggplot(aes(x = fct_reorder(Ethnic, Overall), # reordering data into greatest to least
              y = Overall, 
              fill = Overall)) +
   geom_col() +
-  coord_flip() + 
-  scale_y_log10() +
-  theme_bw() +
-  scale_fill_viridis(option = "C") +
+  coord_flip() + # flipping the x and y axis
+  scale_y_log10() + # scaling the y axis to display the difference between the ethnic groups better
+  theme_bw(base_size = 14) +
+  scale_fill_viridis(option = "C") + 
   labs(title = "Top 5 and Bottom 5 Ethnic Groups Total Eligible Indivduals in Medi-Cal from 2012 to 2024", 
        x = "Ethnic Group", 
-       y = "Overall Number of Eligible Individuals", 
+       y = "Overall Number of Eligible Individuals (Log Scaled)", 
        caption = "This bar chart displays the top 5 and bottom 5 ethnic groups of eligible individuals under 21 in Medi-Cal from 2012 to 2024.") 
 ```
 
@@ -141,14 +140,14 @@ In the graph, we can see that there is an increase in Medi-Cal eligibility for a
 #| label: Preparing Visualization 2
 
 V2 <- Yearly |>
-  left_join(V1, by = "Ethnic") |>
-  arrange(desc(Overall)) |>
+  left_join(V1, by = "Ethnic") |> # getting the overall data from previous visualization into this dataset
+  arrange(desc(Overall)) |> # repetition of arranging by descending order of overall and getting unique ethnic groups
   distinct(Ethnic)
 
-ten <- head(V2, 10)
+ten <- head(V2, 10) # getting top 10 ethnic groups
 
 plot_data <- Yearly |>
-  right_join(ten, by = "Ethnic")
+  right_join(ten, by = "Ethnic") # combining ten and yearly so that I could have the same columns in yearly dataset but have the top 10 ethnic group
 ```
 
 ```{r}
@@ -160,21 +159,21 @@ plot_data |>
   ggplot(aes(x = Year,
              y = Total, 
              group = Ethnic, 
-             linetype = Ethnic, 
-             color = Ethnic)) +
-  geom_line() +
-  theme_bw() +
-  scale_y_log10() + 
-  scale_x_discrete(limits = 2012:2024) +
+             linetype = Ethnic, # Allows people who can't see color still be able to differentiate the top 10 ethnic group
+             color = Ethnic)) + 
+  geom_line(size = 1.2) + 
+  theme_bw(base_size = 12) +
+  scale_y_log10() + # Log Scaling so that we can see the lines more clearly
+  scale_x_discrete(limits = 2012:2024) + # For x-axis to contain all years for 2012 to 2024
   labs(x = "Years from 2012 to 2024", 
-       y = "Total Number of Eligible Individuals Per Year", 
+       y = "Total Number of Eligible Individuals Per Year (Log Scaled)", 
        title = "Trends in Medi-Cal Eligibility for the Top 10 Ethnic Groups (2012-2024)", 
        linetype = "Ethnic Groups:",
        color = "Ethnic Group:",
        caption = "Line graph depiciting the changing trends in Medi-Cal \neligibility for the top 10 ethnic groups from 2012 to 2024") +
   geom_text(data = subset(plot_data, Year == 2024), 
             aes(label = paste0(" ", 1:10)), 
-            hjust = -0.2, vjust = 0) +
+            hjust = -0.2, vjust = 0) + # Another way to allow people who are color blind differentiate each ethnic group
   theme(legend.position = "right",
         legend.box = "horizontal")
   
@@ -183,4 +182,30 @@ The given line graph portrays the trends in Medi-Cal eligibility for individuals
 
 ## Visualization 3
 
-Here is a description of the second visualization. I want to describe what the visualization shows to a general audience. I do not want to see any code or technical terms. I want to be able to read this and understand what the visualization shows. I also want to see a caption and alt text for the visualization. The caption should be a short description of the visualization and the alt text should be a longer description of the visualization. The alt text should be descriptive enough that someone who is blind could understand what the visualization shows.
+The horizontal stacked bar chart shows the total number of eligible youth under 21 in 2024 across the different ethnic groups, with the stacked segments of the monthly contributions. Each given bar represents an ethnic group with segments filled by each month's value. This shows how eligibility numbers accumulate over time.
+
+This visualization highlights which racial/ethnic groups account for the largest share of Medi-Cal eligibility amongst the youth in 2024 and how monthly enrollment or accepted eligibility changes across the year. It provides a clear view of the population and shows which months get the most people.
+
+```{r}
+#| label: Plots of Visualization 3
+#| fig-width: 12
+#| fig-height: 8
+
+M2024 |>
+  ggplot(aes(x = Eligiblity, 
+             y = fct_reorder(Ethnic, Eligiblity), 
+             fill = Month)) +
+  geom_bar(stat = "identity", # Helps stack each monthly contributions to the total of each ethnic group
+           color = "black") + # Helps see the difference in each contribution
+  scale_x_log10() +
+  theme_bw(base_size = 14) +
+  labs(title = "2024's Monthly Contributions to Total MediCal Eligible Individual by Ethnicity", 
+       x = "Number of Eligible Individals (Log Scaled)", 
+       y = "Ethnicity Groups", 
+       fill = "Months", 
+       caption = "Barchart shows the montly contributiosn to the total numner of Medi-Cal eligible indivduals under 21 across different ethnic groups in 2024.") +
+  scale_fill_viridis_d(option = "C") # color scale
+```
+
+The horizontal stacked bar chart shows the Medi-Cal eligibility count for various ethnic groups 2024, broken down by Months. Each bar represents an ethnic group, with monthly contributions stacked and differentiated by color (the lightest is Month 01, to the darkest Month 12).
+
